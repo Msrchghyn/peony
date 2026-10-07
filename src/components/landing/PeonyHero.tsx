@@ -1,6 +1,8 @@
 "use client";
 
-import { FileText, Send } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { ArrowDown, CalendarDays, FileText, Mail, Send, Check, Sparkles } from "lucide-react";
 
 function PeonyFlower({ className = "" }: { className?: string }) {
   return (
@@ -30,13 +32,53 @@ const promos = [
   ["48 hours left", "promo p-iris t6"],
 ];
 
-
+const floatingItems = [
+  { className: "float-card float-card--one", rotate: -7, x: -430, y: -145, delay: 0.04, icon: <Mail size={16} />, title: "Interview invite", subtitle: "Tomorrow · 10:30 AM" },
+  { className: "float-card float-card--two", rotate: 6, x: 425, y: -145, delay: 0.1, icon: <CalendarDays size={16} />, title: "Meeting moved", subtitle: "Design sync · 3:00 PM" },
+  { className: "float-card float-card--three", rotate: -4, x: -435, y: 175, delay: 0.16, icon: <FileText size={16} />, title: "Invoice received", subtitle: "Ready for review" },
+  { className: "float-card float-card--four", rotate: 5, x: 430, y: 185, delay: 0.22, icon: <Sparkles size={16} />, title: "Application update", subtitle: "Added to Job Search" },
+];
 
 function PromoCard({ label, className }: { label: string; className: string }) {
   return <div className={className}><b>{label}</b><span><i /><i /></span></div>;
 }
 
 export default function PeonyHero() {
+  const [gmailConnected, setGmailConnected] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 42, damping: 18, mass: 0.9 });
+  const smoothY = useSpring(mouseY, { stiffness: 42, damping: 18, mass: 0.9 });
+  const sceneX = useTransform(smoothX, [-1, 1], [-8, 8]);
+  const sceneY = useTransform(smoothY, [-1, 1], [-5, 5]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch("/api/gmail/status", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) return null;
+        return response.json();
+      })
+      .then((status) => {
+        if (!cancelled && status?.connected) setGmailConnected(true);
+      })
+      .catch(() => undefined);
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const move = (event: MouseEvent) => {
+      mouseX.set((event.clientX / window.innerWidth - 0.5) * 2);
+      mouseY.set((event.clientY / window.innerHeight - 0.5) * 2);
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, [mouseX, mouseY]);
+
   return (
     <>
       <header className="nav">
@@ -49,14 +91,14 @@ export default function PeonyHero() {
             <a href="#notice">How it works</a>
             <a href="#gardens">Gardens</a>
             <a href="#act">Ask once</a>
-            <a className="btn btn-ink btn-sm" href="#act">Open Peony</a>
+            <a className="btn btn-ink btn-sm" href="/app">{gmailConnected ? "Open your inbox" : "Open Peony"}</a>
           </nav>
         </div>
       </header>
 
       <section className="hero" id="top">
         <div className="wrap">
-          <h1 className="hero-title">Your inbox, in bloom.</h1>
+          <h1>Your inbox, in bloom.</h1>
           <p className="lede">Peony brings the important things forward, softens the noise, and turns related emails into little spaces that actually make sense.</p>
           <div className="hero-cta">
             <a className="btn btn-ink" href="#act">Open Peony</a>
@@ -68,6 +110,26 @@ export default function PeonyHero() {
               {promos.map(([label, className]) => <PromoCard key={label} label={label} className={className} />)}
             </div>
 
+            <motion.div className="hero-floating" aria-hidden="true" style={{ x: sceneX, y: sceneY }}>
+              {floatingItems.map((item, index) => (
+                <motion.article
+                  className={item.className}
+                  key={item.title}
+                  initial={{ opacity: 0, scale: 0.6, x: 0, y: 0, rotate: 0 }}
+                  animate={{ opacity: 1, scale: 1, x: item.x, y: [item.y, item.y - 7, item.y], rotate: item.rotate }}
+                  transition={{
+                    x: { type: "spring", stiffness: 56, damping: 13, delay: item.delay },
+                    scale: { type: "spring", stiffness: 66, damping: 12, delay: item.delay },
+                    opacity: { duration: 0.35, delay: item.delay },
+                    rotate: { type: "spring", stiffness: 55, damping: 13, delay: item.delay },
+                    y: { duration: 5 + index * 0.4, repeat: Infinity, ease: "easeInOut", delay: 1 + item.delay },
+                  }}
+                >
+                  <span className="mini-icon">{item.icon}</span>
+                  <div className="float-copy"><b>{item.title}</b><span>{item.subtitle}</span></div>
+                </motion.article>
+              ))}
+            </motion.div>
 
             <article className="notebook" aria-label="Preview of the Peony inbox">
               <header className="nb-head">

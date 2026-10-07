@@ -137,6 +137,367 @@
 /* Auth */
 .auth-shell{min-height:100svh;background:#f7f5fa;display:grid;place-items:center;position:relative;overflow:hidden;padding:30px 18px;font-family:var(--body);color:var(--ink)}.auth-orbit{position:absolute;width:620px;height:620px;border-radius:50%;border:1px solid rgba(224,216,231,.8);right:-220px;top:-210px;box-shadow:0 0 0 80px rgba(242,236,246,.65),0 0 0 160px rgba(248,245,250,.8)}.auth-brand{position:absolute;left:clamp(20px,6vw,100px);top:28px;display:flex;align-items:center;gap:8px;font:600 1rem var(--display);letter-spacing:-.03em}.auth-brand span{color:var(--rose);font-size:20px}.auth-card{width:min(100%,440px);position:relative;background:#fff;border:1px solid var(--hair);border-radius:28px;padding:42px 40px;box-shadow:0 25px 70px -42px rgba(31,25,43,.3);text-align:center}.auth-flower{width:48px;height:48px;margin:0 auto 17px;border-radius:16px;display:grid;place-items:center;background:var(--rose-bg);color:var(--rose);font-size:25px}.auth-kicker{display:inline-flex;align-items:center;gap:5px;color:var(--rose-ink);font-size:.65rem;font-weight:700}.auth-card h1{font:600 2.35rem/1.02 var(--display);letter-spacing:-.055em;margin-top:10px}.auth-card>p{font-size:.76rem;line-height:1.55;color:#908995;margin:9px auto 25px;max-width:34ch}.auth-card form{text-align:left}.auth-card label{display:block;font-size:.67rem;font-weight:700;color:#68616f;margin-top:13px}.auth-card input{width:100%;height:43px;margin-top:7px;border:1px solid var(--hair-strong);border-radius:12px;padding:0 12px;outline:0;background:#fcfbfd;color:var(--ink);font:500 .75rem var(--body)}.auth-card input:focus{border-color:#cdbfd1;box-shadow:0 0 0 4px rgba(218,187,204,.17)}.password-wrap{display:block;position:relative}.password-wrap input{padding-right:42px}.password-wrap button{position:absolute;right:4px;top:11px;width:34px;height:34px;display:grid;place-items:center;border:0;background:transparent;color:#968f9c;cursor:pointer}.auth-submit{width:100%;height:45px;margin-top:22px;border:0;border-radius:999px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;gap:7px;font:700 .72rem var(--body);cursor:pointer;box-shadow:0 10px 24px -14px rgba(31,25,43,.7)}.auth-submit:disabled{opacity:.6;cursor:wait}.auth-message{margin-top:14px;padding:10px 12px;border-radius:11px;background:#f4eff7;color:#74687a;font-size:.66rem;line-height:1.5;text-align:left}.auth-switch{margin-top:20px;border:0;background:none;color:#8d8494;font:600 .66rem var(--body);cursor:pointer}.auth-switch:hover{color:var(--ink)}.auth-footnote{position:absolute;bottom:20px;color:#aaa2af;font-size:.59rem}@media(max-width:620px){.auth-card{padding:34px 24px;border-radius:22px}.auth-brand{left:18px;top:20px}.auth-card h1{font-size:2rem}.auth-footnote{display:none}}
 
-.auth-confirm-shell{padding-top:60px}.auth-confirm-card{padding-top:48px;padding-bottom:42px}.auth-confirm-card h1{margin-top:12px}.auth-confirm-card>p{max-width:38ch;margin-bottom:20px}.auth-confirm-link{text-decoration:none;margin-top:8px}.spin{animation:peony-spin 1s linear infinite}@keyframes peony-spin{to{transform:rotate(360deg)}}
+/* Phase 4 — Gmail connection, realtime status and action menus */
+.inbox-top-actions{position:relative}.cloud-status{border:0;cursor:pointer}.cloud-status:disabled{opacity:.55;cursor:default}.spin{animation:peony-spin .8s linear infinite}@keyframes peony-spin{to{transform:rotate(360deg)}}
+.utility-popover{position:fixed;right:18px;top:74px;z-index:90;width:280px;padding:15px;border:1px solid var(--hair);border-radius:15px;background:#fff;box-shadow:0 20px 50px -28px rgba(31,25,43,.35);display:flex;flex-direction:column;gap:6px;font-size:.68rem}.utility-popover strong{font-size:.72rem}.utility-popover span,.utility-popover small{color:#918997;line-height:1.45}.utility-popover button{margin-top:5px;width:max-content;border:0;border-radius:999px;padding:7px 10px;background:var(--ink);color:#fff;font:700 .62rem var(--body);cursor:pointer}
+.inbox-notice{max-width:1250px;margin:-5px auto 16px;padding:10px 12px 10px 14px;border:1px solid rgba(226,190,208,.55);background:#fff8fb;border-radius:12px;color:#765e6c;font-size:.67rem;display:flex;align-items:center;justify-content:space-between;gap:10px}.inbox-notice button{border:0;background:transparent;color:#9a8490;display:grid;place-items:center;cursor:pointer}
+.detail-menu-wrap{position:relative}.detail-menu{position:absolute;right:0;top:37px;z-index:50;min-width:165px;padding:6px;border:1px solid var(--hair);border-radius:12px;background:#fff;box-shadow:0 18px 40px -22px rgba(31,25,43,.4)}.detail-menu button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 9px;border:0;border-radius:8px;background:transparent;color:var(--ink);font:600 .63rem var(--body);text-align:left;cursor:pointer}.detail-menu button:hover{background:#f7f3f8}.tag-menu{right:0;top:37px}.detail-icon.danger:hover{color:#b75b70;background:#fff2f5}
+.empty-state button{margin-top:14px;padding:8px 12px;border:0;border-radius:999px;background:var(--ink);color:#fff;font:700 .62rem var(--body);cursor:pointer}.reply-box{position:relative}.reply-fill{margin:0 12px 8px;padding:5px 8px;border:0;border-radius:999px;background:#f2edf5;color:#74687a;font:600 .58rem var(--body);cursor:pointer}.send-button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+@media(max-width:620px){.utility-popover{right:12px;left:12px;width:auto}.inbox-notice{margin-left:0;margin-right:0}.cloud-status{max-width:105px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 
-.auth-resend{display:block;margin-top:9px;padding:0;border:0;background:none;color:#c84d79;font:700 .64rem var(--body);cursor:pointer}.auth-resend:disabled{opacity:.55;cursor:wait}
+/* ─────────────────────────────────────────────────────────────
+   Peony polish pass — calmer hierarchy, safer responsive behavior
+   ───────────────────────────────────────────────────────────── */
+.inbox-app{
+  background:
+    radial-gradient(circle at 8% 12%, rgba(229,100,141,.07), transparent 22rem),
+    radial-gradient(circle at 92% 18%, rgba(110,118,234,.055), transparent 25rem),
+    #f7f5fa;
+}
+.inbox-topbar{
+  box-shadow:0 1px 0 rgba(30,26,43,.025),0 12px 30px -26px rgba(40,25,70,.25);
+}
+.cloud-status{
+  min-height:30px;
+  padding:6px 10px;
+  border:1px solid transparent;
+  transition:background .16s ease,border-color .16s ease,transform .16s ease;
+}
+.cloud-status:hover:not(:disabled){transform:translateY(-1px)}
+.cloud-status.is-cloud{border-color:rgba(101,166,127,.16)}
+.inbox-main{padding-top:38px}
+.inbox-heading{margin-bottom:21px}
+.inbox-heading h1{font-size:clamp(2.5rem,3.3vw,3.25rem)}
+.ask-peony-button{padding:10px 14px;background:rgba(255,255,255,.92)}
+.ask-peony-button:hover{border-color:rgba(229,100,141,.28);box-shadow:0 10px 24px -17px rgba(30,26,43,.32);transform:translateY(-1px)}
+.inbox-content{gap:18px}
+.message-list-panel{max-height:calc(100svh - 215px);overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(30,26,43,.14) transparent}
+.list-toolbar{position:sticky;top:0;z-index:4;background:rgba(255,255,255,.94);backdrop-filter:blur(12px)}
+.message-row{padding:15px 16px}
+.message-row.selected{background:linear-gradient(90deg,#fff3f7,#fcf8fb)}
+.message-row:focus-visible,.inbox-nav-item:focus-visible,.garden-nav-item:focus-visible,.icon-button:focus-visible,.detail-icon:focus-visible,.ask-peony-button:focus-visible,.cloud-status:focus-visible{
+  outline:3px solid rgba(229,100,141,.22);outline-offset:2px
+}
+.message-avatar{width:38px;height:38px;border-radius:13px}
+.message-row-top strong{font-size:.75rem}
+.message-subject{font-size:.73rem}
+.message-preview{font-size:.65rem}
+.message-meta{font-size:.59rem}
+.message-detail{
+  position:sticky;
+  top:88px;
+  max-height:calc(100svh - 120px);
+  overflow:auto;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(30,26,43,.12) transparent;
+}
+.detail-toolbar{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.94);backdrop-filter:blur(12px)}
+.detail-content{padding:31px 34px 34px}
+.detail-content h2{font-size:clamp(1.9rem,2.7vw,2.55rem);max-width:24ch}
+.sender-block{padding:14px 0 19px}
+.sender-block > div:first-of-type{min-width:0}
+.sender-block > .detail-menu-wrap{flex:0 0 auto;margin-left:auto}
+.sender-block .detail-menu-wrap .detail-icon{background:#f7f3f8}
+.email-body{font-size:.87rem;line-height:1.85;color:#514b5b}
+.peony-suggestion{box-shadow:0 10px 28px -24px rgba(70,66,160,.42)}
+.reply-box{box-shadow:0 12px 30px -26px rgba(30,26,43,.35)}
+.reply-box textarea{min-height:110px;font-size:.72rem}
+.send-button{padding:8px 13px}
+.peony-tip--error{background:#fff6f8;border-color:rgba(181,91,112,.2)}
+.peony-tip--error svg{color:#b75b70}
+.peony-tip--error span{color:#8a6872}
+.peony-tip--error button{color:#a34d68}
+.empty-state{padding:80px 25px}
+.empty-state > span{width:44px;height:44px;margin:0 auto 13px;border-radius:14px;display:grid;place-items:center;background:var(--rose-bg)}
+
+@media (min-width:981px){
+  .inbox-sidebar{position:sticky;top:68px;height:calc(100svh - 68px)}
+}
+
+@media (max-width:980px){
+  .message-list-panel{max-height:none}
+  .message-detail{position:static;max-height:none;overflow:visible}
+}
+
+@media (max-width:620px){
+  .inbox-topbar{height:62px}
+  .inbox-layout{min-height:calc(100svh - 62px)}
+  .inbox-sidebar{top:62px}
+  .inbox-main{padding:24px 12px 32px}
+  .inbox-heading h1{font-size:2.25rem}
+  .inbox-heading p{font-size:.75rem}
+  .message-row{padding:14px 12px}
+  .message-avatar{width:36px;height:36px}
+  .message-meta{gap:6px}
+  .message-preview{max-width:calc(100vw - 115px)}
+  .utility-popover{top:68px}
+}
+
+/* Phase 4.3 — inbox visual refinement */
+.cloud-status{
+  min-width:126px;
+  min-height:34px;
+  justify-content:center;
+  gap:7px;
+  padding:7px 11px;
+  border-radius:999px;
+  border:1px solid rgba(30,26,43,.09);
+  background:rgba(255,255,255,.92);
+  color:#6f6878;
+  box-shadow:0 5px 18px -15px rgba(30,26,43,.4);
+}
+.cloud-status.is-connect{
+  color:#5f4b58;
+  background:#fffafb;
+  border-color:rgba(229,100,141,.2);
+}
+.cloud-status.is-connect svg{color:var(--rose-ink)}
+.cloud-status.is-cloud{
+  color:#47715f;
+  background:#edf8f2;
+  border-color:rgba(101,166,127,.22);
+}
+.cloud-status.is-cloud svg{color:#4d9a72}
+.cloud-status:hover:not(:disabled){
+  background:#fff;
+  border-color:rgba(229,100,141,.28);
+  box-shadow:0 10px 24px -17px rgba(30,26,43,.42);
+}
+.cloud-status.is-cloud:hover:not(:disabled){border-color:rgba(101,166,127,.28)}
+
+/* The left navigation is its own scroll area so long garden lists never push
+   the account/help controls below the viewport. */
+@media (min-width:981px){
+  .inbox-sidebar{
+    overflow-y:auto;
+    overflow-x:hidden;
+    overscroll-behavior:contain;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(30,26,43,.14) transparent;
+    scrollbar-gutter:stable;
+  }
+  .sidebar-bottom{margin-top:20px;flex:none}
+}
+
+.message-avatar,
+.detail-avatar{
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  flex:none;
+}
+.message-avatar{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  border:1px solid rgba(30,26,43,.06);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);
+}
+.detail-avatar{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  border:1px solid rgba(30,26,43,.06);
+}
+.sender-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  background:#fff;
+  padding:7px;
+}
+.sender-avatar > span:not(.sender-avatar){font-weight:800}
+.sender-avatar::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);
+  pointer-events:none;
+}
+
+.message-row{align-items:center}
+.message-row-copy{min-width:0}
+.message-row-top{min-width:0}
+.message-row-top strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Email content gets real document rhythm instead of one giant text block. */
+.email-body{
+  margin-top:25px;
+  max-width:70ch;
+  color:#514b5b;
+  font-size:.9rem;
+  line-height:1.82;
+  overflow-wrap:anywhere;
+}
+.email-body p + p{margin-top:1.05em}
+.email-body a{
+  color:#595ec8;
+  text-decoration:underline;
+  text-decoration-color:rgba(89,94,200,.3);
+  text-underline-offset:3px;
+}
+.email-body a:hover{color:#3f46ad;text-decoration-color:currentColor}
+
+.message-detail .detail-content{padding-bottom:44px}
+
+@media(max-width:980px){
+  .cloud-status{min-width:0}
+  .message-detail .detail-content{padding-bottom:36px}
+}
+
+@media(max-width:620px){
+  .cloud-status{min-width:38px;width:38px;padding:0;border-radius:12px}
+  .cloud-status-label{display:none}
+  .message-avatar{width:38px;height:38px;border-radius:12px}
+  .detail-avatar{width:40px;height:40px}
+}
+
+
+/* Phase 4.4 — Gmail reading experience */
+.cloud-status{
+  flex:0 0 auto;
+  min-width:132px;
+  width:auto;
+  white-space:nowrap;
+  word-break:normal;
+}
+.cloud-status-label{
+  white-space:nowrap;
+  line-height:1;
+}
+
+.email-body{
+  width:100%;
+  max-width:68ch;
+  margin-top:28px;
+  padding:0 0 12px;
+  color:#514b5b;
+  font:400 .94rem/1.9 var(--body);
+  letter-spacing:.002em;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+.email-body p{margin:0}
+.email-body p + p{margin-top:1.25rem}
+.email-body ul{margin:1rem 0 1.25rem;padding-left:1.35rem}
+.email-body li{padding-left:.25rem;margin:.45rem 0}
+.email-body a{
+  color:#555bc5;
+  text-decoration:underline;
+  text-decoration-color:rgba(85,91,197,.28);
+  text-underline-offset:3px;
+  overflow-wrap:anywhere;
+}
+.email-body a:hover{color:#3e45ad;text-decoration-color:currentColor}
+.email-body::after{
+  content:"";
+  display:block;
+  height:1px;
+  margin-top:28px;
+  background:linear-gradient(90deg,rgba(30,26,43,.08),transparent 75%);
+}
+.message-detail .detail-content{overflow-x:hidden}
+@media(max-width:980px){
+  .cloud-status{min-width:0}
+  .email-body{max-width:none;font-size:.92rem;line-height:1.8}
+}
+@media(max-width:620px){
+  .cloud-status{min-width:38px;width:38px}
+  .cloud-status-label{display:none}
+  .email-body{margin-top:22px;font-size:.9rem;line-height:1.75}
+}
+
+
+/* Phase 4.5 — inbox header + sender badge reliability */
+.inbox-topbar{
+  min-width:0;
+}
+.inbox-brand{
+  flex:0 0 185px;
+}
+.inbox-search{
+  min-width:160px;
+}
+.inbox-top-actions{
+  flex:0 0 auto;
+  min-width:0;
+  gap:6px;
+}
+.cloud-status{
+  flex:0 0 auto;
+  min-width:0;
+  width:auto;
+  height:34px;
+  padding:0 11px;
+  gap:6px;
+  white-space:nowrap;
+  overflow:hidden;
+  border-radius:999px;
+}
+.cloud-status-label{
+  display:inline;
+  white-space:nowrap;
+  font-size:.62rem;
+  line-height:1;
+}
+.cloud-status-state{
+  display:inline-flex;
+  align-items:center;
+  padding-left:6px;
+  border-left:1px solid currentColor;
+  opacity:.62;
+  font-size:.55rem;
+  line-height:1;
+  white-space:nowrap;
+}
+.cloud-status.is-syncing .cloud-status-label{
+  min-width:43px;
+}
+.sender-avatar{
+  letter-spacing:-.04em;
+  font-size:.62rem;
+}
+.sender-avatar > span{
+  position:relative;
+  z-index:1;
+  font-weight:800;
+}
+.sender-avatar::before{
+  content:"";
+  position:absolute;
+  inset:5px;
+  border-radius:9px;
+  background:rgba(255,255,255,.55);
+}
+.sender-avatar.detail-avatar::before{
+  inset:5px;
+}
+.sender-avatar img{display:none}
+
+@media (min-width:981px){
+  .inbox-topbar{
+    gap:18px;
+  }
+  .inbox-search{
+    max-width:560px;
+  }
+}
+
+@media (max-width:1100px){
+  .inbox-brand{flex-basis:145px}
+  .inbox-top-actions .cloud-status-state{display:none}
+  .cloud-status{padding-inline:10px}
+}
+
+@media (max-width:760px){
+  .inbox-brand{flex-basis:auto}
+  .inbox-search{min-width:0}
+}
+
+@media (max-width:620px){
+  .cloud-status{width:38px;min-width:38px;height:38px;padding:0;border-radius:12px}
+  .cloud-status-label,.cloud-status-state{display:none}
+}
